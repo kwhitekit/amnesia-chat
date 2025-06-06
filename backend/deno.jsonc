@@ -1,0 +1,13 @@
+{
+  "imports": {
+    "hono": "npm:hono@^4.7.11"
+  },
+  "nodeModulesDir": "auto",
+  "unstable": [
+    "kv",
+    "cron"
+  ],
+  "tasks": {
+    "install": "deno install --allow-scripts"
+  }
+}
