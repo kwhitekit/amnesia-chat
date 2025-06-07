@@ -1,5 +1,7 @@
 {
   "imports": {
+    "@apollo/server": "npm:@apollo/server@^4.12.2",
+    "@as-integrations/cloudflare-workers": "npm:@as-integrations/cloudflare-workers@^1.1.1",
     "hono": "npm:hono@^4.7.11"
   },
   "nodeModulesDir": "auto",
