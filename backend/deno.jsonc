@@ -10,6 +10,7 @@
     "cron"
   ],
   "tasks": {
+    "start": "deno run -A main.ts",
     "install": "deno install --allow-scripts"
   }
 }
