@@ -1,5 +1,7 @@
 # amnesia-chat
-Dead simple chat with no memory and no authentication. Connect, talk, enjoy the moment — nothing is stored, ever.
+
+Dead simple chat with no memory and no authentication. Connect, talk, enjoy the
+moment — nothing is stored, ever.
 
 ## Git flow
 
@@ -40,5 +42,3 @@ Dead simple chat with no memory and no authentication. Connect, talk, enjoy the 
 - the library level type mismatch between apollo server and as-integration _(one
   of them use cjs instead of esm type import declaration)_
 - possible missing of the request context on the integration edge
-
-
