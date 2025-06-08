@@ -16,7 +16,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - run: echo "VERSION=${{ github.event.release.tag_name }}" >> $GITHUB_ENV
-      - run: ./release.sh $VERSION
+      - run: bash ./release.sh $VERSION
       - name: Commit version bump
         run: |
           git config user.name "github-actions"
