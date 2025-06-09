@@ -1,15 +1,15 @@
+export files_with_version := 'backend/deno.json frontend/package.json'
+
 release:
   #!/usr/bin/env bash
   VERSION=$(just v)
   ### should be semver format (basic)
   if ! [[ "$VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+(-[0-9A-Za-z.-]+)?$ ]]; then
-    echo "The first line of ./VERSION.md has invalid version format: $VERSION"
-    echo "Should be valid semver"
-    echo "Thought it is ok to declare markdown heading. For example:\n# v1.0.2"
+    echo "The first line of ./VERSION.md should be valid semver version format (markdown heading allowed): $VERSION"
     exit 1
   fi
   ### Update package.json files
-  for FILE in backend/deno.json frontend/package.json; do
+  for FILE in {{ files_with_version }}; do
     jq ".version=\"$VERSION\"" "$FILE" > tmp.$$.json && mv tmp.$$.json "$FILE"
   done
   echo "Version updated to $VERSION"
@@ -21,9 +21,8 @@ release:
 fmt:
   deno fmt --unstable-component --unstable-sql
 
-alias default := ls
-ls:
-  just --list
+default:
+  @just --choose
 
 alias v := version
 version:
