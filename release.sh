@@ -15,7 +15,7 @@ fi
 
 # Read current version from VERSION file (if exists)
 if [[ -f VERSION ]]; then
-  CURRENT_VERSION=$(cat VERSION)
+  CURRENT_VERSION=$(head -n 1 VERSION)
 else
   CURRENT_VERSION="0.0.0"
 fi
@@ -35,3 +35,5 @@ for FILE in backend/deno.json frontend/package.json; do
 done
 
 echo "Version updated to $VERSION in VERSION file and package.json files (no commit done)"
+
+git tag -a $VERSION -F ./VERSION

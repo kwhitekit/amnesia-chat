@@ -3,16 +3,31 @@
 Dead simple chat with no memory and no authentication. Connect, talk, enjoy the
 moment — nothing is stored, ever.
 
+## Project specifics _(most of them primarily not-related to code)_
+
+- the `just` cli program is used for flexible and rich task management
+- to update version the `just release` helper command can be used
+
 ## Git flow
 
 - as base schema the `github flow` is used
-- though it is extended by `release` management (not branches but tagging)
-- the feature branches created before release should be merge `main` with
-  rebasing
+- ~~though it is extended by `release` management (not branches but tagging)~~
+- the feature branches created before<sub>but not included to</sub> tag should
+  be rebase `main` so it will be appeared after release in timeline
+- so yes, the main extension of standard github flow is strict and sync tagging
+  _(it will be used for better explicit deployments)_
 
-#### Details
+#### Git - Github integration requirements
 
-- no environment branches at all
+- restrict to `tag` creation from github
+  - the tag should be created programmatically - so the sync between tag and
+    version can be guarantied
+  - the release creation because is required to be attached to some tag will
+    always be of specific **valid** version
+
+#### General details
+
+- **no environment branches at all**
 - the `main` branch is the single and final source of truth
 - the environment is configured via github environment feature
 - the releases are used as time traveling for deployments

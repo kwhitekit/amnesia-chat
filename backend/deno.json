@@ -12,5 +12,6 @@
   "tasks": {
     "start": "deno run -A main.ts",
     "install": "deno install --allow-scripts"
-  }
+  },
+  "version": "0.0.0"
 }
