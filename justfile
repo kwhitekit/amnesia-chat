@@ -35,4 +35,4 @@ version:
     }'
 
 tag:
-  git tag -a v$(just v) --cleanup=verbatim -m "$(cat ./VERSION.md)"
+  git tag -af v$(just v) --cleanup=verbatim -m "$(cat ./VERSION.md)"
