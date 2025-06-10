@@ -1,39 +1,41 @@
+set unstable := true
+
 export JSON_FILES_WITH_VERSION := 'backend/deno.json frontend/package.json'
 
-default:
-    @just --choose
+alias v := version
 
-release:
-    #!/usr/bin/env bash
+@default:
+    just --choose
+
+bump: _pre_bump _bump
+
+@_pre_bump:
+    echo
+    echo  This version will be used: {{ BOLD + BLUE }}$(just v){{ NORMAL }}
+    echo "{{ ITALIC }}(to change - modify first line in ./VERSION.md){{ NORMAL }}"
+    echo
+
+[confirm('Ok? (y/N)')]
+[script('bash')]
+@_bump:
     VERSION=$(just v)
-    ### should be semver format (basic)
     if ! [[ "$VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+(-[0-9A-Za-z.-]+)?$ ]]; then
       echo "The first line of ./VERSION.md should be valid semver version format (markdown heading allowed): $VERSION"
       exit 1
     fi
-    ### Update package.json files
     for FILE in {{ JSON_FILES_WITH_VERSION }}; do
       jq ".version=\"$VERSION\"" "$FILE" > tmp.$$.json && mv tmp.$$.json "$FILE"
     done
-    echo "Version updated to $VERSION"
-    just fmt
-    git add -A
-    git commit -m "RELEASE: v$(just v)"
-    just tag
+    echo {{ BOLD + BLUE }}"v$VERSION"
 
-fmt:
-    just --fmt --unstable
-    deno fmt --unstable-component --unstable-sql
-
-alias v := version
-
+[script('bash')]
 version:
-    #!/usr/bin/env bash
     head -n 1 ./VERSION.md | awk '{               
         sub(/#*\s*v?/, "");
         sub(/\s+.*/, "");
         print
       }'
 
-tag:
-    git tag -af v$(just v) --cleanup=whitespace -m "$(cat ./VERSION.md)"
+fmt:
+    just --fmt --unstable
+    deno fmt --unstable-component --unstable-sql
